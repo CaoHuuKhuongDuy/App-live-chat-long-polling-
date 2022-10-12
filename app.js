@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser') 
 const cors = require('cors')
 const app = express()
-const port = 3000
+const port = 80
 
 
 app.use(cookieParser())
@@ -35,18 +35,17 @@ app.use(express.static(__dirname))
 
 function login(req, res) 
 {
+    if (req.cookies.id == undefined) return false
     return (username[req.cookies.id] != "");
 } 
 
 app.route('/').get((req, res) => {
 
     if (login(req, res)) res.redirect('/chat')
-    // console.log(login(req,res))       
     res.sendFile(__dirname + "/views/login_form.html")
 }).post((req, res) => {
 
     let cookie_id = req.cookies.id
-    // username[]
     if (req.body.username == "") res.send("Username không được trống")
     else 
       {
