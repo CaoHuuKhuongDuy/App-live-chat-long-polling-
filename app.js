@@ -5,7 +5,6 @@ const cors = require('cors')
 const app = express()
 const port = 80
 
-
 app.use(cookieParser())
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -41,7 +40,11 @@ function login(req, res)
 
 app.route('/').get((req, res) => {
 
-    if (login(req, res)) res.redirect('/chat')
+    if (login(req, res)) 
+      {
+        res.redirect('/chat')
+        return
+      }  
     res.sendFile(__dirname + "/views/login_form.html")
 }).post((req, res) => {
 
@@ -56,7 +59,11 @@ app.route('/').get((req, res) => {
 
 
 app.get('/chat',(req, res) => {
-    if (!login(req,res)) res.redirect('/')
+    if (!login(req,res)) 
+      {
+        res.redirect('/')
+        return
+      }  
     res.sendFile(__dirname + "/views/index.html")
 })
 

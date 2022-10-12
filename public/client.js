@@ -42,7 +42,8 @@ async function subsciber()
 
 function send_chat()
 {
-    let chat_message = document.getElementById("chat").value 
+    let chat_message = document.getElementById("chat").value
+    if (chat_message == "") return; 
     document.getElementById("chat").value = ""
     let url = "/send"
     let x = fetch(url, {
